@@ -1,0 +1,84 @@
+version: 0.0.1
+examples:
+      - context: # 对话历史
+      # 
+          - role: user
+            content: 我最近嗓子不疼了
+          - role: bot
+            # 触发插件
+            plugin:
+              # 应当触发的接口operationId
+              operationId: deleteSymptom
+              # 思考过程，对触发有帮助
+              thoughts: 这是一个从病历本中删除症状嗓子疼的需求
+              requestArguments:
+                symptom: "嗓子疼"
+                query: 删除症状嗓子疼
+      #
+          - role: user
+            content: 我最近身体不舒服，嗓子疼
+          - role: bot
+            # 触发插件
+            plugin:
+              # 应当触发的接口operationId
+              operationId: addSymptom
+              # 思考过程，对触发有帮助
+              thoughts: 这是一个添加症状到病历本的需求
+              requestArguments:
+                symptom: "嗓子疼"
+                query: 请帮我添加一个症状嗓子疼到病历本
+          - role: user
+            content: 病历本
+          - role: bot
+            # 触发插件
+            plugin:
+              # 应当触发的接口operationId
+              operationId: getMedicalrecord
+              # 思考过程，对触发有帮助
+              thoughts: 这是一个以md格式展示病历本的需求，无需出现患者的身份信息
+              requestArguments:
+                query: 以工整美观的格式展示病历本
+          - role: user
+            content: 我除了嗓子疼之外，还有些四肢无力
+          - role: bot
+            # 触发插件
+            plugin:
+              # 应当触发的接口operationId
+              operationId: addSymptom
+              # 思考过程，对触发有帮助
+              thoughts: 这是一个向病历本中添加另外一个症状的需求
+              requestArguments:
+                symptom: "四肢无力"
+                query: 请帮我添加一个症状四肢无力到病历本中
+          - role: user
+            content: 请根据病症对我提出诊断或者建议
+          - role: bot
+            # 触发插件
+            plugin:
+              # 应当触发的接口operationId
+              operationId: generateDiagnosis
+              # 思考过程，对触发有帮助
+              thoughts: 这是一个根据症状为患者生成诊断并展示的需求
+              requestArguments:
+                query: 生成相应诊断
+          # - role: user
+          #   content: 我最近嗓子不疼了
+          # - role: bot
+          #   # 触发插件
+          #   plugin:
+          #     # 应当触发的接口operationId
+          #     operationId: deleteSymptom
+          #     # 思考过程，对触发有帮助
+          #     thoughts: 这是一个从病历本中删除症状嗓子疼的需求
+          #     requestArguments:
+          #       symptom: "嗓子疼"
+          #       query: 删除症状嗓子疼
+
+      # 反例，无需触发此插件的任一某个接口
+      # - context:
+      #     - role: user
+      #       content:
+      #     - role: bot
+      #       # 无需触发
+      #       plugin:
+      #         thoughts: 我不需要使用以上工具
